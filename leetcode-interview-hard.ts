@@ -1,5 +1,6 @@
 import { assertEquals } from "https://deno.land/std@0.138.0/testing/asserts.ts"
 
+// ------ Product Except Self ( O(n) )
 function productExceptSelf(nums: number[]): number[] {
   if (nums.length == 0) return nums
   if (nums.length == 1) return [1]
@@ -57,6 +58,7 @@ type SpiralPath = {
   rect: Rect,
 }
 
+// ------ Spiral Order Matrix
 function spiralOrder(matrix: number[][]): number[] {
   const getVal = (m: number[][], x: number, y: number) => m[y][x]
   const getNextCoord = (spiralPath: SpiralPath): SpiralPath => {
@@ -137,4 +139,35 @@ Deno.test('spiralOrder', () => {
   assertEquals(spiralOrder([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12]]), [1, 2, 3, 4, 8, 12, 11, 10, 9, 5, 6, 7])
   assertEquals(spiralOrder([[1, 2, 3], [4, 5, 6], [7, 8, 9]]), [1, 2, 3, 6, 9, 8, 7, 4, 5])
   assertEquals(spiralOrder([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]]), [1, 2, 3, 4, 8, 12, 16, 15, 14, 13, 9, 5, 6, 7, 11, 10])
+})
+
+type FourTuple = {
+  x: number,
+  y: number,
+  z: number,
+  d: number,
+}
+// ------ Four Sum Count
+function fourSumCount(nums1: number[], nums2: number[], nums3: number[], nums4: number[]): number 
+{
+  let tupleCount = 0
+
+  for (const n1 of nums1) {
+    for (const n2 of nums2) {
+      for (const n3 of nums3) {
+        for (const n4 of nums4) {
+          if (n1 + n2 + n3 + n4 === 0) {
+            ++tupleCount
+          }
+        }
+      }
+    }
+  }
+
+  return tupleCount
+}
+
+Deno.test('fourSumCount', () => {
+  assertEquals(fourSumCount([1, 2], [-2, -1], [-1, 2], [0, 2]), 2)
+  assertEquals(fourSumCount([0], [0], [0], [0]), 1)
 })
