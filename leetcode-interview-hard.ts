@@ -141,12 +141,6 @@ Deno.test('spiralOrder', () => {
   assertEquals(spiralOrder([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]]), [1, 2, 3, 4, 8, 12, 16, 15, 14, 13, 9, 5, 6, 7, 11, 10])
 })
 
-type FourTuple = {
-  x: number,
-  y: number,
-  z: number,
-  d: number,
-}
 // ------ Four Sum Count
 function fourSumCount(nums1: number[], nums2: number[], nums3: number[], nums4: number[]): number 
 {
@@ -170,4 +164,31 @@ function fourSumCount(nums1: number[], nums2: number[], nums3: number[], nums4: 
 Deno.test('fourSumCount', () => {
   assertEquals(fourSumCount([1, 2], [-2, -1], [-1, 2], [0, 2]), 2)
   assertEquals(fourSumCount([0], [0], [0], [0]), 1)
+})
+
+// ------ Max Area between two heights
+function maxArea(heights: number[]): number {
+  if (heights.length < 2) return 0
+
+  let largestArea = 0
+  for (let i = 0; i < heights.length; i++) {
+    const height1 = heights[i]
+    
+    for (let j = i + 1; j < heights.length; j++) {
+      const height2 = heights[j]
+      const smallerHeight = Math.min(height1, height2)
+      const currentArea = smallerHeight * (j - i)
+
+      if (currentArea > largestArea) {
+        largestArea = currentArea
+      }
+    }
+  }
+
+  return largestArea
+}
+
+Deno.test('maxArea', () => {
+  assertEquals(maxArea([1, 8, 6, 2, 5, 4, 8, 3, 7]), 49)
+  assertEquals(maxArea([1, 1]), 1)
 })
